@@ -15,10 +15,7 @@ class Map {
         const popupOptions = {
             className: item.severity.toLowerCase(),
         }
-        const markerOptions = L.icon({
-            iconUrl: `img/${item.severity}.png`
-        });
-        L.marker(JSON.parse(item.point).reverse(), { icon: markerOptions }).addTo(this.#map)
+        L.marker(JSON.parse(item.point).reverse()).addTo(this.#map)
             .bindPopup(`${item.corridorIds[0].toUpperCase()}<br/>${item.comments}<br />${item.severity}`, popupOptions)
             .openPopup();
     }
