@@ -1,0 +1,35 @@
+html body #map {
+  width: 800px;
+  height: 600px;
+  margin: auto;
+}
+html body #map .leaflet-pane .severe .leaflet-popup-content-wrapper {
+  background: #a70000;
+  color: white;
+}
+html body #map .leaflet-pane .severe .leaflet-popup-content-wrapper a {
+  color: lightgrey;
+}
+html body #map .leaflet-pane .severe .leaflet-popup-tip {
+  background: #a70000;
+}
+html body #map .leaflet-pane .moderate .leaflet-popup-content-wrapper {
+  background: #9ca700;
+  color: white;
+}
+html body #map .leaflet-pane .moderate .leaflet-popup-content-wrapper a {
+  color: lightgrey;
+}
+html body #map .leaflet-pane .moderate .leaflet-popup-tip {
+  background: #9ca700;
+}
+html body #map .leaflet-pane .minimal .leaflet-popup-content-wrapper {
+  background: #1518d4;
+  color: white;
+}
+html body #map .leaflet-pane .minimal .leaflet-popup-content-wrapper a {
+  color: lightgrey;
+}
+html body #map .leaflet-pane .minimal .leaflet-popup-tip {
+  background: #1518d4;
+}
