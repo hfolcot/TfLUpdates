@@ -1,11 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html body header {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, #3a38dc, #3200a5);
+  color: white;
+}
+html body .container-fluid {
+  padding: 0;
+  display: flex;
+}
+html body #infoContainer {
+  width: 20vw;
+  height: 90vh;
+  background-color: #9A98B5;
+  overflow: scroll;
+}
+html body #infoContainer .menu {
+  width: 75%;
+  margin: 10px auto;
+}
+@media (max-width: 991px) {
+  html body #infoContainer {
+    display: none;
+  }
+}
 html body #map {
-  width: 800px;
-  height: 600px;
-  margin: auto;
+  width: 80vw;
+  height: 90vh;
+}
+@media (max-width: 991px) {
+  html body #map {
+    width: 100vw;
+  }
 }
 html body #map .leaflet-pane .severe .leaflet-popup-content-wrapper {
   background: #a70000;
   color: white;
+}
+@media (max-width: 991px) {
+  html body #map .leaflet-pane .severe .leaflet-popup-content-wrapper {
+    max-width: 300px;
+  }
 }
 html body #map .leaflet-pane .severe .leaflet-popup-content-wrapper a {
   color: lightgrey;

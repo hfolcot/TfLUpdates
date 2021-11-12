@@ -1,6 +1,28 @@
 import map from './map.js'
 import { API_URL, APP_ID, APP_KEY } from './config.js'
 
+const choiceMenu = document.getElementById('mapValue');
+const infoContainer = document.getElementById('infoContainer');
+
+const addToResults = function (item) {
+    let severity = '🟢';
+    if (item.severity === 'Severe') {
+        severity = '🔴';
+    }
+    if (item.severity === 'Moderate') {
+        severity = '⚠';
+    }
+
+    const markup = `<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">${severity} ${item.corridorIds[0].toUpperCase()}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">${item.category}</h6>
+      <p class="card-text">${item.comments}</p>
+    </div>
+  </div>`;
+    infoContainer.insertAdjacentHTML('beforeend', markup);
+}
+
 const getJson = async function (url) {
     try {
         const res = await fetch(url);
@@ -12,18 +34,26 @@ const getJson = async function (url) {
     }
 };
 
+const filterData = function (data, filterBy, filterValue) {
+    return data.filter(item => {
+        return item[filterBy] === filterValue;
+    })
+}
+
+
 const processResult = function (data) {
     data.forEach(item => {
+        console.log(item);
         map._addMarker(item);
+        addToResults(item);
     })
 };
 
-(async function () {
+const getData = async function () {
     try {
         const data = await getJson(`${API_URL}/Road?app_id=${APP_ID}&app_key=${APP_KEY}`);
-        data.filter(item => {
-            return item.statusSeverity === 'Closure';
-        }).forEach(async item => {
+        const filteredData = filterData(data)
+        filteredData.forEach(async item => {
             const res2 = await getJson(`${API_URL}/Road/${item.id}/Disruption?app_id=${APP_ID}&app_key=${APP_KEY}`);
             processResult(res2);
         })
@@ -31,4 +61,8 @@ const processResult = function (data) {
     catch (err) {
         console.error(`There was an error fetching the data: ${err}`)
     }
-})()
+}
+
+// Event Listeners
+window.addEventListener('load', getData);
+choiceMenu.addEventListener('change', getData);

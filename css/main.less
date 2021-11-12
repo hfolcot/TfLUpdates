@@ -1,15 +1,58 @@
+* {
+    margin : 0;
+    padding: 0;
+}
+
 html {
     body {
+
+        header {
+            height         : 10vh;
+            display        : flex;
+            justify-content: center;
+            align-items    : center;
+            background     : linear-gradient(145deg, #3a38dc, #3200a5);
+            color          : white;
+        }
+
+        .container-fluid {
+            padding: 0;
+            display: flex;
+        }
+
+        #infoContainer {
+            width           : 20vw;
+            height          : 90vh;
+            background-color: #9A98B5;
+            overflow        : scroll;
+
+            .menu {
+                width : 75%;
+                margin: 10px auto;
+            }
+
+            @media(max-width: 991px) {
+                display: none;
+            }
+        }
+
         #map {
-            width : 800px;
-            height: 600px;
-            margin: auto;
+            width : 80vw;
+            height: 90vh;
+
+            @media(max-width: 991px) {
+                width: 100vw;
+            }
 
             .leaflet-pane {
                 .severe {
                     .leaflet-popup-content-wrapper {
                         background: rgb(167, 0, 0);
                         color     : white;
+
+                        @media(max-width: 991px) {
+                            max-width: 300px;
+                        }
 
                         a {
                             color: lightgrey;

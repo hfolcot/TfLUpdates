@@ -32,10 +32,15 @@
     <header>
         <h1 class="text-center">Transport for London Travel Updates</h1>
     </header>
-    <main class="container">
+    <main class="container-fluid">
         <div id="map"></div>
-
-        <div id="resultsText"></div>
+        <div id="infoContainer">
+            <div class="menu">
+                <select id="mapValue" class="form-select">
+                    <option selected disabled value="">Filter by Road...</option>
+                </select>
+            </div>
+        </div>
     </main>
     <footer></footer>
 </body>
