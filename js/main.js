@@ -4,7 +4,13 @@ import { API_URL, APP_ID, APP_KEY } from './config.js'
 const choiceMenu = document.getElementById('mapValue');
 const infoContainer = document.getElementById('infoContainer');
 
-const addToResults = function (item) {
+const insertHtml = function (container, markup) {
+    // Add html to container
+    container.insertAdjacentHTML('beforeend', markup);
+}
+
+const createMarkup = function (item) {
+    // Add html for each incident to info container
     let severity = '🟢';
     if (item.severity === 'Severe') {
         severity = '🔴';
@@ -20,10 +26,11 @@ const addToResults = function (item) {
       <p class="card-text">${item.comments}</p>
     </div>
   </div>`;
-    infoContainer.insertAdjacentHTML('beforeend', markup);
+    insertHtml(infoContainer, markup);
 }
 
 const getJson = async function (url) {
+    // Fetch the data and return as JSON
     try {
         const res = await fetch(url);
         return res.json();
@@ -45,7 +52,7 @@ const processResult = function (data) {
     data.forEach(item => {
         console.log(item);
         map._addMarker(item);
-        addToResults(item);
+        createMarkup(item);
     })
 };
 
@@ -65,4 +72,4 @@ const getData = async function () {
 
 // Event Listeners
 window.addEventListener('load', getData);
-choiceMenu.addEventListener('change', getData);
+//choiceMenu.addEventListener('change', getData);
