@@ -29,6 +29,17 @@ const createMarkup = function (item) {
     insertHtml(infoContainer, markup);
 }
 
+const populateForm = function (roads) {
+    const uniqueRoads = [...new Set(roads)];
+    uniqueRoads.forEach(road => {
+        const markup = `<option value="${road.id}">${road.displayName}</option>`;
+        choiceMenu.insertAdjacentHTML('beforeend', markup);
+    })
+
+
+}
+
+
 const getJson = async function (url) {
     // Fetch the data and return as JSON
     try {
@@ -50,7 +61,6 @@ const filterData = function (data, filterBy, filterValue) {
 
 const processResult = function (data) {
     data.forEach(item => {
-        console.log(item);
         map._addMarker(item);
         createMarkup(item);
     })
@@ -58,17 +68,21 @@ const processResult = function (data) {
 
 const getData = async function () {
     try {
-        const data = await getJson(`${API_URL}/Road?app_id=${APP_ID}&app_key=${APP_KEY}`);
-        const filteredData = filterData(data)
+        const data = await getJson(`${API_URL}/Road/?app_id=${APP_ID}&app_key=${APP_KEY}`);
+        const roads = [];
+        const filteredData = filterData(data);
         filteredData.forEach(async item => {
+            roads.push({ id: item.id, displayName: item.displayName });
             const res2 = await getJson(`${API_URL}/Road/${item.id}/Disruption?app_id=${APP_ID}&app_key=${APP_KEY}`);
             processResult(res2);
         })
+        populateForm(roads);
     }
     catch (err) {
         console.error(`There was an error fetching the data: ${err}`)
     }
 }
+
 
 // Event Listeners
 window.addEventListener('load', getData);
